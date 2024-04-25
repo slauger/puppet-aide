@@ -27,7 +27,6 @@ class aide::config {
     month    => '*',
     monthday => '*',
     weekday  => '*',
-    target   => '/etc/crontab',
     require => File['/etc/aide.conf'],
   }
 
