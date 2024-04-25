@@ -19,11 +19,14 @@ class aide::config {
     content => epp("${module_name}/etc/aide.conf.epp"),
   }
 
-  file_line { 'aide-check':
-    ensure  => present,
-    path    => '/etc/crontab',
-    line    => "${cron_minute} ${cron_hour} * * * root /usr/sbin/aide --check",
-    match   => '/usr/sbin/aide --check',
+  cron { 'aide-check':
+    ensure   => $aide::cron_ensure,
+    command  => '/usr/sbin/aide --check',
+    hour     => $cron_hour,
+    minute   => $cron_minute,
+    month    => '*',
+    monthday => '*',
+    weekday  => '*',
     require => File['/etc/aide.conf'],
   }
 
