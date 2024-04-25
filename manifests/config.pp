@@ -22,7 +22,7 @@ class aide::config {
   file_line { 'aide-check':
     ensure  => present,
     path    => '/etc/crontab',
-    line    => " ${cron_minute} ${cron_hour} * * * root /usr/sbin/aide --check",
+    line    => "${cron_minute} ${cron_hour} * * * root /usr/sbin/aide --check",
     match   => '/usr/sbin/aide --check',
     require => File['/etc/aide.conf'],
   }
