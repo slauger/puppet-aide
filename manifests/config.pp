@@ -20,14 +20,15 @@ class aide::config {
   }
 
   cron { 'aide-check':
-    ensure   => $aide::cron_ensure,
-    command  => '/usr/sbin/aide --check',
-    hour     => $cron_hour,
-    minute   => $cron_minute,
-    month    => '*',
-    monthday => '*',
-    weekday  => '*',
-    require => File['/etc/aide.conf'],
+    ensure      => $aide::cron_ensure,
+    command     => 'aide --check',
+    hour        => $cron_hour,
+    minute      => $cron_minute,
+    month       => '*',
+    monthday    => '*',
+    weekday     => '*',
+    environment => ['PATH=/bin:/sbin:/usr/sbin:/usr/bin'],
+    require     => File['/etc/aide.conf'],
   }
 
   exec { 'aide-init':
