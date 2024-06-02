@@ -10,4 +10,37 @@ class aide::config {
   } else {
     $cron_minute = $aide::cron_minute
   }
+
+  file { '/etc/aide.conf':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0600',
+    content => epp("${module_name}/etc/aide.conf.epp"),
+  }
+
+  cron { 'aide-check':
+    ensure      => $aide::cron_ensure,
+    command     => 'aide --check',
+    hour        => $cron_hour,
+    minute      => $cron_minute,
+    month       => '*',
+    monthday    => '*',
+    weekday     => '*',
+    environment => ['PATH=/bin:/sbin:/usr/sbin:/usr/bin'],
+    require     => File['/etc/aide.conf'],
+  }
+
+  exec { 'aide-init':
+    command => 'aide --init',
+    path    => '/bin:/sbin:/usr/sbin:/usr/bin',
+    creates => '/var/lib/aide/aide.db.new.gz',
+    require => File['/etc/aide.conf'],
+  }
+  ~>exec { 'aide-copy-database':
+    command     => '/cp -p /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz',
+    path        => '/bin:/sbin:/usr/sbin:/usr/bin',
+    refreshonly => true,
+    require     => File['/etc/aide.conf'],
+  }
 }
