@@ -311,3 +311,11 @@ DATAONLY =  p+n+u+g+s+acl+selinux+xattrs+sha512
 /usr/sbin/autrace p+i+n+u+g+s+b+acl+xattrs+sha512
 /usr/sbin/augenrules p+i+n+u+g+s+b+acl+xattrs+sha512
 /usr/sbin/rsyslogd p+i+n+u+g+s+b+acl+xattrs+sha512
+
+/sbin/auditctl p+i+n+u+g+s+b+acl+xattrs+sha512
+/sbin/auditd p+i+n+u+g+s+b+acl+xattrs+sha512
+/sbin/ausearch p+i+n+u+g+s+b+acl+xattrs+sha512
+/sbin/aureport p+i+n+u+g+s+b+acl+xattrs+sha512
+/sbin/autrace p+i+n+u+g+s+b+acl+xattrs+sha512
+/sbin/augenrules p+i+n+u+g+s+b+acl+xattrs+sha512
+/sbin/rsyslogd p+i+n+u+g+s+b+acl+xattrs+sha512
