@@ -19,6 +19,21 @@ class aide::config {
     content => epp("${module_name}/etc/aide.conf.epp"),
   }
 
+  file { '/etc/aide.conf.d':
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0700',
+  }
+
+  file { '/etc/aide.conf.d/common.conf':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0600',
+    content => epp("${module_name}/etc/aide.conf.d/common.conf.epp"),
+  }
+
   cron { 'aide-check':
     ensure      => $aide::cron_ensure,
     command     => "${aide::path}/aide --check",

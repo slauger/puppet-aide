@@ -319,3 +319,6 @@ DATAONLY =  p+n+u+g+s+acl+selinux+xattrs+sha512
 /sbin/autrace p+i+n+u+g+s+b+acl+xattrs+sha512
 /sbin/augenrules p+i+n+u+g+s+b+acl+xattrs+sha512
 /sbin/rsyslogd p+i+n+u+g+s+b+acl+xattrs+sha512
+
+# include /etc/aide.conf.d/*.conf
+@@include /etc/aide.conf.d/*.conf
