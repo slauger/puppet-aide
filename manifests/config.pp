@@ -38,7 +38,7 @@ class aide::config {
     require => File['/etc/aide.conf'],
   }
   ~>exec { 'aide-copy-database':
-    command     => '/cp -p /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz',
+    command     => 'cp -p /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz',
     path        => '/bin:/sbin:/usr/sbin:/usr/bin',
     refreshonly => true,
     require     => File['/etc/aide.conf'],
