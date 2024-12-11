@@ -21,7 +21,7 @@ class aide::config {
 
   cron { 'aide-check':
     ensure      => $aide::cron_ensure,
-    command     => 'aide --check',
+    command     => "${aide::path}/aide --check",
     hour        => $cron_hour,
     minute      => $cron_minute,
     month       => '*',
@@ -32,7 +32,7 @@ class aide::config {
   }
 
   exec { 'aide-init':
-    command => 'aide --init',
+    command => "${aide::path}/aide --init",
     path    => '/bin:/sbin:/usr/sbin:/usr/bin',
     creates => '/var/lib/aide/aide.db.new.gz',
     require => File['/etc/aide.conf'],
