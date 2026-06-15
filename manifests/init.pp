@@ -3,6 +3,7 @@ class aide (
   Optional[String] $cron_minute,
   Optional[String] $cron_hour,
   String[1] $path,
+  Array[String[1]] $configs = [],
 ) {
   contain 'aide::package'
   contain 'aide::config'

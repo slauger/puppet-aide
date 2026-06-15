@@ -16,7 +16,9 @@ class aide::config {
     owner   => 'root',
     group   => 'root',
     mode    => '0600',
-    content => epp("${module_name}/etc/aide.conf.epp"),
+    content => epp("${module_name}/etc/aide.conf.epp", {
+      'configs' => $aide::configs,
+    }),
   }
 
   file { '/etc/aide.conf.d':
@@ -24,14 +26,8 @@ class aide::config {
     owner   => 'root',
     group   => 'root',
     mode    => '0700',
-  }
-
-  file { '/etc/aide.conf.d/common.conf':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0600',
-    content => epp("${module_name}/etc/aide.conf.d/common.conf.epp"),
+    purge   => true,
+    recurse => true,
   }
 
   cron { 'aide-check':
@@ -52,7 +48,7 @@ class aide::config {
     creates => '/var/lib/aide/aide.db.new.gz',
     require => [
       File['/etc/aide.conf'],
-      File['/etc/aide.conf.d/common.conf'],
+      File['/etc/aide.conf.d'],
     ],
   }
   ~>exec { 'aide-copy-database':
