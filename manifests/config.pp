@@ -50,12 +50,14 @@ class aide::config {
     command => "${aide::path}/aide --init",
     path    => '/bin:/sbin:/usr/sbin:/usr/bin',
     creates => '/var/lib/aide/aide.db.new.gz',
-    require => File['/etc/aide.conf'],
+    require => [
+      File['/etc/aide.conf'],
+      File['/etc/aide.conf.d/common.conf'],
+    ],
   }
   ~>exec { 'aide-copy-database':
     command     => 'cp -p /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz',
     path        => '/bin:/sbin:/usr/sbin:/usr/bin',
     refreshonly => true,
-    require     => File['/etc/aide.conf'],
   }
 }
